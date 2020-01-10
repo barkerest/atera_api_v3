@@ -12,7 +12,9 @@ namespace AteraAPI.V3.Models.Internal
 	/// </summary>
 	/// <typeparam name="TInterface"></typeparam>
 	/// <typeparam name="TModel"></typeparam>
-	internal class CommonApiEndpoint<TInterface, TModel> : ICommonApiEndpoint<TInterface> where TModel : class, TInterface
+	internal class CommonApiEndpoint<TInterface, TModel> : ICommonApiEndpoint<TInterface> 
+		where TInterface : class 
+		where TModel : class, TInterface
 	{
 		private readonly IApiContextInternal _context;
 		private readonly string _name;

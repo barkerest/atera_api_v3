@@ -10,6 +10,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <typeparam name="TInterface"></typeparam>
 	/// <typeparam name="TIdType"></typeparam>
 	public interface IReadOnlyApiEndpoint<TInterface, TIdType> : IEnumerable<TInterface>
+		where TInterface : class
 	{
 		/// <summary>
 		/// Finds the item with the specified ID.
@@ -44,6 +45,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <typeparam name="TInterface"></typeparam>
 	/// <typeparam name="TIdType"></typeparam>
 	public interface IReadCreateApiEndpoint<TInterface, TIdType> : IReadOnlyApiEndpoint<TInterface, TIdType>
+		where TInterface : class
 	{
 		/// <summary>
 		/// Creates the item and returns the ID on success.
@@ -66,6 +68,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <typeparam name="TInterface"></typeparam>
 	/// <typeparam name="TIdType"></typeparam>
 	public interface IReadUpdateApiEndpoint<TInterface, TIdType> : IReadOnlyApiEndpoint<TInterface, TIdType>
+		where TInterface : class
 	{
 		/// <summary>
 		/// Updates the item and returns true on success.
@@ -104,6 +107,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <typeparam name="TInterface"></typeparam>
 	/// <typeparam name="TIdType"></typeparam>
 	public interface IReadDeleteApiEndpoint<TInterface, TIdType> : IReadOnlyApiEndpoint<TInterface, TIdType>
+		where TInterface : class
 	{
 		/// <summary>
 		/// Removes the item and returns true on success.
@@ -143,6 +147,7 @@ namespace AteraAPI.V3.Interfaces
 		IReadCreateApiEndpoint<TInterface, TIdType>,
 		IReadUpdateApiEndpoint<TInterface, TIdType>,
 		IReadDeleteApiEndpoint<TInterface, TIdType>
+		where TInterface : class
 	{
 		/// <summary>
 		/// Does this endpoint support adding new items.
@@ -165,6 +170,7 @@ namespace AteraAPI.V3.Interfaces
 	/// </summary>
 	/// <typeparam name="TInterface"></typeparam>
 	public interface ICommonApiEndpoint<TInterface> : ICommonApiEndpoint<TInterface, int>
+		where TInterface : class
 	{
 		
 	}
