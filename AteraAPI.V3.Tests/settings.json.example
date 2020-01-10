@@ -1,0 +1,4 @@
+﻿{
+  "baseUrl": "https://app.atera.com/api/v3/",
+  "apiKey": "your-api-key"
+}
