@@ -49,7 +49,7 @@ namespace AteraAPI.V3
 		}
 
 		/// <summary>
-		/// Gets, reads, updates, and deletes customers.
+		/// Creates, reads, updates, and deletes customers.
 		/// </summary>
 		public ICommonApiEndpoint<ICustomer> Customers { get; }
 
