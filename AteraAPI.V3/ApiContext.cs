@@ -53,6 +53,11 @@ namespace AteraAPI.V3
 		/// </summary>
 		public ICommonApiEndpoint<ICustomer> Customers { get; }
 
+		/// <summary>
+		/// Creates, reads, updates, and deletes contacts.
+		/// </summary>
+		public ICommonApiEndpoint<IContact> Contacts { get; }
+		
 		
 		
 		#region IApiContextInternal

@@ -66,9 +66,9 @@ namespace AteraAPI.V3.Tests.Models
 		[MemberData(nameof(GetJsonConvertTestParams))]
 		public void DeserializeWithCustomerID(ICustomer item)
 		{
+			Assert.NotNull(item);
 			var newId = item.CustomerID + 5678;
 			
-			Assert.NotNull(item);
 			Assert.NotEqual(item.CustomerID, newId);
 			var jo = JObject.FromObject(item);
 			Assert.False(jo.ContainsKey("CustomerID"));
