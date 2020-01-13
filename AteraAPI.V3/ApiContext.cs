@@ -57,11 +57,10 @@ namespace AteraAPI.V3
 		
 		#region IApiContextInternal
 		
-		private async Task<HttpWebRequest> CreateRequestAsync(
+		private HttpWebRequest CreateRequest(
 			string endpoint,
 			string method = "GET",
-			IEnumerable<(string, string)> args = null,
-			string          content = null)
+			IEnumerable<(string, string)> args = null)
 		{
 			string url = ApiBaseUrl + endpoint;
 
@@ -75,15 +74,6 @@ namespace AteraAPI.V3
 			ret.Method = method;
 			ret.Headers.Add("X-API-KEY", ApiKey);
 			ret.Headers.Add("Accept", "application/json");
-
-			if (content != null)
-			{
-				using (var stream = await ret.GetRequestStreamAsync())
-				using (var writer = new StreamWriter(stream))
-				{
-					await writer.WriteAsync(content);
-				}
-			}
 
 			return ret;
 		}
@@ -122,10 +112,11 @@ namespace AteraAPI.V3
 
 		async Task<string> IApiContextInternal.ExecuteAsync(string endpoint, object data, IEnumerable<(string, string)> args, string method, HttpStatusCode expectedStatusCode)
 		{
-			var request = await CreateRequestAsync(endpoint, method, args);
+			var request = CreateRequest(endpoint, method, args);
 
 			if (data != null)
 			{
+				request.Headers.Add("Content-Type", "application/json");
 				using (var stream = await request.GetRequestStreamAsync())
 				using (var streamWriter = new StreamWriter(stream))
 				using (var jsonWriter = new JsonTextWriter(streamWriter))

@@ -87,7 +87,7 @@ namespace AteraAPI.V3.Models.Internal
 		/// <inheritdoc />
 		public async Task<int> GetCountAsync()
 		{
-			var tmp = await _context.ExecuteAsync<GetListResult<TModel>>(_name, new[] {("page", "1"), ("itemsInPage", "1")});
+			var tmp = await _context.ExecuteAsync<GetListResult<TModel>>(_name, args: new[] {("page", "1"), ("itemsInPage", "1")});
 			return tmp?.TotalItemCount ?? 0;
 		}
 				
@@ -117,8 +117,8 @@ namespace AteraAPI.V3.Models.Internal
 		{
 			var pp = ("itemsInPage", "100");
 			var pg = 1;
-			var result = _context.ExecuteAsync<GetListResult<TModel>>(_name, new[] {("page", pg.ToString()), pp}).Result;
-			while (result.Page < result.TotalPages)
+			var result = _context.ExecuteAsync<GetListResult<TModel>>(_name, args: new[] {("page", pg.ToString()), pp}).Result;
+			while (result.Page <= result.TotalPages)
 			{
 				foreach (var item in result.Items)
 				{
@@ -126,7 +126,7 @@ namespace AteraAPI.V3.Models.Internal
 				}
 
 				pg++;
-				result = _context.ExecuteAsync<GetListResult<TModel>>(_name, new[] {("page", pg.ToString()), pp}).Result;
+				result = _context.ExecuteAsync<GetListResult<TModel>>(_name, args: new[] {("page", pg.ToString()), pp}).Result;
 			}
 		}
 
