@@ -3,7 +3,7 @@
 namespace AteraAPI.V3.Interfaces
 {
 	/// <summary>
-	/// Defines the properties in a customer model.
+	/// Defines the interface for customers.
 	/// </summary>
 	public interface ICustomer
 	{

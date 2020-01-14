@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Web;
 using AteraAPI.V3.Exceptions;
 using AteraAPI.V3.Interfaces;
-using AteraAPI.V3.Models;
 using AteraAPI.V3.Models.Internal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -44,21 +43,61 @@ namespace AteraAPI.V3
 			
 			if (!ApiBaseUrl.EndsWith("/")) ApiBaseUrl += "/";
 
-			Customers = new CommonApiEndpoint<ICustomer, Customer>(this, "customers", true, true, true, x => x.CustomerID);
-			
+			Customers = new CustomerApiEndpoint(this);
+			Contacts = new ContactApiEndpoint(this);
+			Agents = new AgentApiEndpoint(this);
+			Alerts = new AlertApiEndpoint(this);
+			Invoices = new InvoiceApiEndpoint(this);
+			ProductRates = new RateApiEndpoint(this, "products");
+			ExpenseRates = new RateApiEndpoint(this, "expenses");
+			Contracts = new ContractApiEndpoint(this);
+			KnowledgeBase = new KnowledgeBaseApiEndpoint(this);
 		}
 
 		/// <summary>
 		/// Creates, reads, updates, and deletes customers.
 		/// </summary>
-		public ICommonApiEndpoint<ICustomer> Customers { get; }
+		public ICustomerApiEndpoint Customers { get; }
 
 		/// <summary>
 		/// Creates, reads, updates, and deletes contacts.
 		/// </summary>
-		public ICommonApiEndpoint<IContact> Contacts { get; }
+		public IContactApiEndpoint Contacts { get; }
 		
+		/// <summary>
+		/// Reads and deletes agents.
+		/// </summary>
+		public IAgentApiEndpoint Agents { get; }
+
+		/// <summary>
+		/// Creates, reads, and deletes alerts.
+		/// </summary>
+		public IAlertApiEndpoint Alerts { get; }
 		
+		/// <summary>
+		/// Reads invoices.
+		/// </summary>
+		public IInvoiceApiEndpoint Invoices { get; }
+		
+		/// <summary>
+		/// Creates, reads, updates, and deletes products.
+		/// </summary>
+		public IRateApiEndpoint ProductRates { get; }
+		
+		/// <summary>
+		/// Creates, reads, updates, and deletes expenses.
+		/// </summary>
+		public IRateApiEndpoint ExpenseRates { get; }
+		
+		/// <summary>
+		/// Reads contracts.
+		/// </summary>
+		public IContractApiEndpoint Contracts { get; }
+		
+		/// <summary>
+		/// Reads knowledge base entries.
+		/// </summary>
+		public IKnowledgeBaseApiEndpoint KnowledgeBase { get; }
 		
 		#region IApiContextInternal
 		

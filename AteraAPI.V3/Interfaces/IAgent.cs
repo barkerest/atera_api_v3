@@ -2,6 +2,9 @@
 
 namespace AteraAPI.V3.Interfaces
 {
+	/// <summary>
+	/// Defines the interface for agents.
+	/// </summary>
 	public interface IAgent
 	{
 		/// <summary>
