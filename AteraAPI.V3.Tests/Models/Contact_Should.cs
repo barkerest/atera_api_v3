@@ -13,33 +13,35 @@ namespace AteraAPI.V3.Tests.Models
 		{
 			var data = new IContact[]
 			{
-				CreateModel(m =>
-				            {
-					            m.CustomerID = 12;
-					            m.FirstName  = "George";
-					            m.LastName   = "Jetson";
-					            m.Email      = "gjetson@spacely.com";
-				            },
-				            ("CreatedOn", DateTime.Now.AddHours(-1)),
-				            ("LastModified", DateTime.Now)),
-				CreateModel(m =>
-				            {
-					            m.CustomerName = "Slate Rock and Gravel Company";
-					            m.FirstName = "Fred";
-					            m.LastName = "Flintstone";
-					            m.Email = "fflintstone@slate.com";
-					            m.IsContactPerson = true;
-				            },
-				            ("ContactID", 1234),
-				            ("CreatedOn", DateTime.Now.AddHours(-1)),
-				            ("LastModified", DateTime.Now))
+				CreateModel(() => new
+				{
+					CustomerID   = 12,
+					FirstName    = "George",
+					LastName     = "Jetson",
+					Email        = "gjetson@spacely.com",
+					CreatedOn    = DateTime.Now.AddHours(-1),
+					LastModified = DateTime.Now
+				}),
+				CreateModel(() => new
+				{
+					ContactID       = 1234,
+					CustomerName    = "Slate Rock and Gravel Company",
+					FirstName       = "Fred",
+					LastName        = "Flintstone",
+					Email           = "fflintstone@slate.com",
+					IsContactPerson = true,
+					CreatedOn       = DateTime.Now.AddHours(-120),
+					LastModified    = DateTime.Now.AddHours(-23)
+				}),
 			};
 
 			return data.Select(x => new object[] {x});
 		}
 
-		private void AdjustConditionals(bool serialize)
+
+		protected override void AdjustProperties(IContact item)
 		{
+			var serialize = (item.ContactID == 0);
 			foreach (var p in Properties)
 			{
 				if (p.Name == "CustomerID" || p.Name == "CustomerName" || p.Name == "Email")
@@ -48,53 +50,29 @@ namespace AteraAPI.V3.Tests.Models
 				}
 			}
 		}
-		
+
 		[Theory]
 		[MemberData(nameof(GetJsonConvertTestParams))]
 		public void SerializeWithWritableProperties(IContact item)
 		{
-			Assert.NotNull(item);
-			AdjustConditionals(item.ContactID == 0);
-			var jo = JObject.FromObject(item);
-			foreach (var p in Properties.Where(x => x.Serialize))
-			{
-				Assert.True(jo.ContainsKey(p.Name), $"Missing {p.Name} property.");
-			}
+			TestThatWritablePropertiesAreSerialized(item);
 		}
 
 		[Theory]
 		[MemberData(nameof(GetJsonConvertTestParams))]
 		public void SerializeWithoutReadonlyProperties(IContact item)
 		{
-			Assert.NotNull(item);
-			AdjustConditionals(item.ContactID == 0);
-			var jo = JObject.FromObject(item);
-			foreach (var p in Properties.Where(x => !x.Serialize))
-			{
-				Assert.False(jo.ContainsKey(p.Name), $"Contains {p.Name} property.");
-			}
+			TestThatReadonlyPropertiesAreNotSerialized(item);
 		}
 
 		[Theory]
 		[MemberData(nameof(GetJsonConvertTestParams))]
 		public void DeserializeWithContactID(IContact item)
 		{
-			Assert.NotNull(item);
-			var newId = item.ContactID + 5678;
-			
-			Assert.NotEqual(item.ContactID, newId);
-			var jo = JObject.FromObject(item);
-			Assert.False(jo.ContainsKey("EndUserID"));
-			jo["EndUserID"] = new JValue(newId);
-			Assert.True(jo.ContainsKey("EndUserID"));
-
-			var type = InternalModel.TypeFor(typeof(IContact));
-			var newItem = jo.ToObject(type) as IContact;
-			Assert.NotNull(newItem);
-			Assert.Equal(newId, newItem.ContactID);
-			Assert.NotEqual(item.ContactID, newItem.ContactID);
+			TestThatPropertyIsDeserialized(
+				item,
+				x => x.ContactID,
+				item.ContactID + 5678);
 		}
-		
-
 	}
 }
