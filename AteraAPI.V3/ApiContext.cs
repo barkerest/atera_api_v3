@@ -52,6 +52,8 @@ namespace AteraAPI.V3
 			ExpenseRates = new RateApiEndpoint(this, "expenses");
 			Contracts = new ContractApiEndpoint(this);
 			KnowledgeBase = new KnowledgeBaseApiEndpoint(this);
+			Tickets = new TicketApiEndpoint(this);
+			CustomValues = new CustomValueApiEndpoint(this);
 		}
 
 		/// <summary>
@@ -98,6 +100,16 @@ namespace AteraAPI.V3
 		/// Reads knowledge base entries.
 		/// </summary>
 		public IKnowledgeBaseApiEndpoint KnowledgeBase { get; }
+		
+		/// <summary>
+		/// Creates, reads, updates, and deletes tickets.
+		/// </summary>
+		public ITicketApiEndpoint Tickets { get; }
+		
+		/// <summary>
+		/// Gets custom values.
+		/// </summary>
+		public ICustomValueApiEndpoint CustomValues { get; }
 		
 		#region IApiContextInternal
 		

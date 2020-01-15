@@ -23,11 +23,11 @@ namespace AteraAPI.V3.Models.Internal
 			_getId    = getId ?? throw new ArgumentNullException(nameof(getId));
 		}
 
-		protected IEnumerable<TInterface> CommonGetEnumerable(string name)
+		protected IEnumerable<TI> CommonGetEnumerable<TI,TM>(string name) where TM : class, TI
 		{
 			var pp     = ("itemsInPage", "100");
 			var pg     = 1;
-			var result = _context.ExecuteAsync<GetListResult<TModel>>(name, args: new[] {("page", pg.ToString()), pp}).Result;
+			var result = _context.ExecuteAsync<GetListResult<TM>>(name, args: new[] {("page", pg.ToString()), pp}).Result;
 			while (result.Page <= result.TotalPages)
 			{
 				foreach (var item in result.Items)
@@ -36,28 +36,31 @@ namespace AteraAPI.V3.Models.Internal
 				}
 
 				pg++;
-				result = _context.ExecuteAsync<GetListResult<TModel>>(name, args: new[] {("page", pg.ToString()), pp}).Result;
+				result = _context.ExecuteAsync<GetListResult<TM>>(name, args: new[] {("page", pg.ToString()), pp}).Result;
 			}
 		}
+
+		protected IEnumerable<TInterface> CommonGetEnumerable(string name) => CommonGetEnumerable<TInterface, TModel>(name);
 		
-		protected async Task<IEnumerable<TInterface>> CommonGetEnumerableAsync(string name)
+		protected async Task<IEnumerable<TI>> CommonGetEnumerableAsync<TI,TM>(string name) where TM : class, TI
 		{
 			var pp     = ("itemsInPage", "100");
 			var pg     = 1;
-			var result = await _context.ExecuteAsync<GetListResult<TModel>>(name, args: new[] {("page", pg.ToString()), pp});
-			var ret = new List<TInterface>();
+			var result = await _context.ExecuteAsync<GetListResult<TM>>(name, args: new[] {("page", pg.ToString()), pp});
+			var ret = new List<TI>();
 			
 			while (result.Page <= result.TotalPages)
 			{
 				ret.AddRange(result.Items);
 				
 				pg++;
-				result = await _context.ExecuteAsync<GetListResult<TModel>>(name, args: new[] {("page", pg.ToString()), pp});
+				result = await _context.ExecuteAsync<GetListResult<TM>>(name, args: new[] {("page", pg.ToString()), pp});
 			}
 
 			return ret;
 		}
 
+		protected Task<IEnumerable<TInterface>> CommonGetEnumerableAsync(string name) => CommonGetEnumerableAsync<TInterface, TModel>(name);
 
 		public virtual IEnumerator<TInterface> GetEnumerator() => CommonGetEnumerable(_name).GetEnumerator();
 
