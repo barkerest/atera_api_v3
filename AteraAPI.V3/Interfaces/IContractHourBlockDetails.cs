@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Details for an hour block contract.
 	/// </summary>
-	public interface IContractHourBlockDetails
+	public interface IContractHourBlockDetails : IApiModel
 	{
 		/// <summary>
 		/// Number of hours included.

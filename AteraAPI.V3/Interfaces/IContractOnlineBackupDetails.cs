@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Details for an online backup contract.
 	/// </summary>
-	public interface IContractOnlineBackupDetails
+	public interface IContractOnlineBackupDetails : IApiModel
 	{
 		/// <summary>
 		/// Rate per GB.

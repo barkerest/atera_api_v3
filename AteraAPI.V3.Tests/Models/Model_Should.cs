@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using AteraAPI.V3.Extensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -100,6 +101,7 @@ namespace AteraAPI.V3.Tests.Models
 			return mex.Member as PropertyInfo ?? throw new ArgumentException("Requires a property in the member expression.");
 		}
 
+		
 		/// <summary>
 		/// Tests that all properties expected to be serialized are serialized.
 		/// </summary>
@@ -178,7 +180,14 @@ namespace AteraAPI.V3.Tests.Models
 			}
 			
 			// set property in serialized JSON.
-			jo[propInfo.Name] = new JValue(testValue);
+			if (testValue.GetType().IsPrimitive || testValue is string || testValue is DateTime || testValue is Guid)
+			{
+				jo[propInfo.Name] = new JValue(testValue);
+			}
+			else
+			{
+				jo[propInfo.Name] = JObject.FromObject(testValue);
+			}
 			Assert.True(jo.ContainsKey(propInfo.Name));
 
 			// deserialize the object.

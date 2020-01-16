@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace AteraAPI.V3.Models.Internal
 {
-	internal class BlockMoneyContract : IContractMoneyBlockDetail
+	internal class BlockMoneyContract : IContractMoneyBlockDetails
 	{
 		[JsonConverter(typeof(ConcreteConverter<Rate>))]
 		public IRate ContractAmount { get; set; }

@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for tickets.
 	/// </summary>
-	public interface ITicket
+	public interface ITicket : IApiModel
 	{
 		/// <summary>
 		/// The ticket ID.

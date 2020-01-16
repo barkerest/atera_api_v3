@@ -15,6 +15,19 @@ namespace AteraAPI.V3.Models.Internal
 
 		public Task<int> CreateAsync(IAlert item) => CommonCreateAsync(item);
 
+		public IAlert Create(Action<IAlert> init) => CreateAsync(init).Result;
+
+		public async Task<IAlert> CreateAsync(Action<IAlert> init)
+		{
+			if (init is null) throw new ArgumentNullException(nameof(init));
+			var item = new Alert();
+			init(item);
+			item.AlertID = await CreateAsync(item);
+			return item;
+		}
+
+		public IAlert NewItem() => new Alert();
+
 		public bool Delete(int id) => CommonDeleteAsync(id).Result;
 
 		public bool Delete(IAlert item) => CommonDeleteAsync(item).Result;

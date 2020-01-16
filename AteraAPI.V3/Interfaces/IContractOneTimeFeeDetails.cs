@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Details about a one-time-fee contract.
 	/// </summary>
-	public interface IContractOneTimeFeeDetails
+	public interface IContractOneTimeFeeDetails : IApiModel
 	{
 		/// <summary>
 		/// The amount of the contract.

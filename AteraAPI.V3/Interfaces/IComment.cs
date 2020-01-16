@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for comments.
 	/// </summary>
-	public interface IComment
+	public interface IComment : IApiModel
 	{
 		/// <summary>
 		/// The date/time of the comment.

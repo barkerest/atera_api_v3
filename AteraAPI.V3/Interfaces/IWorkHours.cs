@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Defines the interface for work hours.
 	/// </summary>
-	public interface IWorkHours
+	public interface IWorkHours : IApiModel
 	{
 		/// <summary>
 		/// The ticket ID.

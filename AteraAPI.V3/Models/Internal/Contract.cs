@@ -27,7 +27,7 @@ namespace AteraAPI.V3.Models.Internal
 		public IContractHourBlockDetails BlockHoursContract { get; set; }
 		
 		[JsonConverter(typeof(ConcreteConverter<BlockMoneyContract>))]
-		public IContractMoneyBlockDetail BlockMoneyContract { get; set; }
+		public IContractMoneyBlockDetails BlockMoneyContract { get; set; }
 		
 		[JsonConverter(typeof(ConcreteConverter<RemoteMonitoringContract>))]
 		public IContractRemoteMonitoringDetails RemoteMonitoringContract { get; set; }

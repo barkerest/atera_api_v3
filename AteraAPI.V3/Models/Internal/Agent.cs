@@ -58,5 +58,7 @@ namespace AteraAPI.V3.Models.Internal
 		public string OfficeSerialNumber { get; set; }
 		public string OfficeFullVersion { get; set; }
 		public string LastLoginUser { get; set; }
+
+		
 	}
 }

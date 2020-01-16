@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for agents.
 	/// </summary>
-	public interface IAgent
+	public interface IAgent : IApiModel
 	{
 		/// <summary>
 		/// The agent ID.

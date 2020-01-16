@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Defines an invoice contact.
 	/// </summary>
-	public interface IInvoiceContact
+	public interface IInvoiceContact : IApiModel
 	{
 		/// <summary>
 		/// The name of the company.

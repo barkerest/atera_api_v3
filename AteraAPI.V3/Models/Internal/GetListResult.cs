@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace AteraAPI.V3.Models.Internal
 {
-	internal class GetListResult<T> where T : class
+	internal class GetListResult<T> : IApiModel where T : class, IApiModel
 	{
 		[JsonProperty("totalItemCount")]
 		public int TotalItemCount { get; set; }

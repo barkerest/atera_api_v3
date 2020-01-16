@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for customers.
 	/// </summary>
-	public interface ICustomer
+	public interface ICustomer : IApiModel
 	{
 		/// <summary>
 		/// The ID of the customer.

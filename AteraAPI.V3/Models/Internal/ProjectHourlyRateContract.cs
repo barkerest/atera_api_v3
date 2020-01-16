@@ -6,9 +6,9 @@ namespace AteraAPI.V3.Models.Internal
 	internal class ProjectHourlyRateContract : IContractProjectHourlyDetails
 	{
 		[JsonConverter(typeof(ConcreteConverter<Rate>))]
-		public IRate PrimaryRate { get; }
+		public IRate PrimaryRate { get; set; }
 		
 		[JsonConverter(typeof(ConcreteArrayConverter<IRate,Rate>))]
-		public IRate[] AdditionalRates { get; }
+		public IRate[] AdditionalRates { get; set; }
 	}
 }

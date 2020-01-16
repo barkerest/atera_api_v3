@@ -8,7 +8,7 @@ using AteraAPI.V3.Interfaces;
 namespace AteraAPI.V3.Models.Internal
 {
 	internal class CommonApiEndpointBase<TInterface, TModel> : IReadOnlyApiEndpoint<TInterface>
-		where TInterface : class
+		where TInterface : class, IApiModel
 		where TModel : class, TInterface
 	{
 		protected readonly IApiContextInternal   _context;
@@ -23,7 +23,7 @@ namespace AteraAPI.V3.Models.Internal
 			_getId    = getId ?? throw new ArgumentNullException(nameof(getId));
 		}
 
-		protected IEnumerable<TI> CommonGetEnumerable<TI,TM>(string name) where TM : class, TI
+		protected IEnumerable<TI> CommonGetEnumerable<TI,TM>(string name) where TM : class, TI where TI : IApiModel
 		{
 			var pp     = ("itemsInPage", "100");
 			var pg     = 1;
@@ -42,7 +42,7 @@ namespace AteraAPI.V3.Models.Internal
 
 		protected IEnumerable<TInterface> CommonGetEnumerable(string name) => CommonGetEnumerable<TInterface, TModel>(name);
 		
-		protected async Task<IEnumerable<TI>> CommonGetEnumerableAsync<TI,TM>(string name) where TM : class, TI
+		protected async Task<IEnumerable<TI>> CommonGetEnumerableAsync<TI,TM>(string name) where TM : class, TI where TI : IApiModel
 		{
 			var pp     = ("itemsInPage", "100");
 			var pg     = 1;

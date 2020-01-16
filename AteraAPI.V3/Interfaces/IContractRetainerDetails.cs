@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Details for a retainer contract.
 	/// </summary>
-	public interface IContractRetainerDetails
+	public interface IContractRetainerDetails : IApiModel
 	{
 		/// <summary>
 		/// Quantity on retainer.

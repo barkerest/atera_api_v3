@@ -1,6 +1,6 @@
 ﻿namespace AteraAPI.V3.Interfaces
 {
-	public interface IHardwareDisk
+	public interface IHardwareDisk : IApiModel
 	{
 		/// <summary>
 		/// The drive letter.

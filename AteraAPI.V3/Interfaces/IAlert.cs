@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for alerts.
 	/// </summary>
-	public interface IAlert
+	public interface IAlert : IApiModel
 	{
 		/// <summary>
 		/// The ID for the alert.
@@ -95,7 +95,7 @@ namespace AteraAPI.V3.Interfaces
 		/// <summary>
 		/// The ticket created for this alert.
 		/// </summary>
-		int?      TicketID           { get; }
+		int?      TicketID           { get; set; }
 		
 		/// <summary>
 		/// The alert message.

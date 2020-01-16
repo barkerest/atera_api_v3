@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for contracts.
 	/// </summary>
-	public interface IContract
+	public interface IContract : IApiModel
 	{
 		/// <summary>
 		/// The contract ID.
@@ -75,7 +75,7 @@ namespace AteraAPI.V3.Interfaces
 		/// <summary>
 		/// Details about a block money contract.
 		/// </summary>
-		IContractMoneyBlockDetail BlockMoneyContract { get; }
+		IContractMoneyBlockDetails BlockMoneyContract { get; }
 		
 		/// <summary>
 		/// Details about a remote monitoring contract.

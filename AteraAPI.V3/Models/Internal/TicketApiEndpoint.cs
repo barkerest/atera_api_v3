@@ -15,6 +15,19 @@ namespace AteraAPI.V3.Models.Internal
 		public int Create(ITicket item) => CommonCreateAsync(item).Result;
 
 		public Task<int> CreateAsync(ITicket item) => CommonCreateAsync(item);
+		
+		public ITicket Create(Action<ITicket> init) => CreateAsync(init).Result;
+		
+		public async Task<ITicket> CreateAsync(Action<ITicket> init)
+		{
+			if (init is null) throw new ArgumentNullException(nameof(init));
+			var item = new Ticket();
+			init(item);
+			item.TicketID = await CreateAsync(item);
+			return item;
+		}
+
+		public ITicket NewItem() => new Ticket();
 
 		public bool Update(int id, ITicket item) => CommonUpdateAsync(id, item).Result;
 

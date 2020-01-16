@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Defines the interface for rates.
 	/// </summary>
-	public interface IRate
+	public interface IRate : IApiModel
 	{
 		/// <summary>
 		/// The ID for this rate.

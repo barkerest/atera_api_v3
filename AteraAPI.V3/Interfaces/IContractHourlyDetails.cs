@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Details for an hourly contract.
 	/// </summary>
-	public interface IContractHourlyDetails
+	public interface IContractHourlyDetails : IApiModel
 	{
 		/// <summary>
 		/// The hourly rate.

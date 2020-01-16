@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Details for a money block contract.
 	/// </summary>
-	public interface IContractMoneyBlockDetail
+	public interface IContractMoneyBlockDetails : IApiModel
 	{
 		/// <summary>
 		/// The contract amount.

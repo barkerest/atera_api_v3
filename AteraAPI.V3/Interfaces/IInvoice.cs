@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for invoices.
 	/// </summary>
-	public interface IInvoice
+	public interface IInvoice : IApiModel
 	{
 		/// <summary>
 		/// The GUID for the invoice.

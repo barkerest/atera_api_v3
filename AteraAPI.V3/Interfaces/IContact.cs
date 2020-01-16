@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for contacts.
 	/// </summary>
-	public interface IContact
+	public interface IContact : IApiModel
 	{
 		/// <summary>
 		/// The contact ID.

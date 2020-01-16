@@ -15,6 +15,19 @@ namespace AteraAPI.V3.Models.Internal
 
 		public Task<int> CreateAsync(IContact item) => CommonCreateAsync(item);
 
+		public IContact Create(Action<IContact> init) => CreateAsync(init).Result;
+
+		public async Task<IContact> CreateAsync(Action<IContact> init)
+		{
+			if (init is null) throw new ArgumentNullException(nameof(init));
+			var item = new Contact();
+			init(item);
+			item.ContactID = await CreateAsync(item);
+			return item;
+		}
+
+		public IContact NewItem() => new Contact();
+
 		public bool Update(int id, IContact item) => CommonUpdateAsync(id, item).Result;
 
 		public bool Update(IContact item) => CommonUpdateAsync(item).Result;

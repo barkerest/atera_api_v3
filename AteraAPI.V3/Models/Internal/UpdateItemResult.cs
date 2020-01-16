@@ -1,6 +1,8 @@
-﻿namespace AteraAPI.V3.Models.Internal
+﻿using AteraAPI.V3.Interfaces;
+
+namespace AteraAPI.V3.Models.Internal
 {
-	internal class UpdateItemResult
+	internal class UpdateItemResult : IApiModel
 	{
 		public int ActionID { get; set; }
 	}

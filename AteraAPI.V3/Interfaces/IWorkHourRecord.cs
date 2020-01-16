@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for work hour records.
 	/// </summary>
-	public interface IWorkHourRecord
+	public interface IWorkHourRecord : IApiModel
 	{
 		/// <summary>
 		/// The ticket ID.

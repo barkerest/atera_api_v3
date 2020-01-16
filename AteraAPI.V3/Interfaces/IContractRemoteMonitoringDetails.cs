@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Details for a remote monitoring contract.
 	/// </summary>
-	public interface IContractRemoteMonitoringDetails
+	public interface IContractRemoteMonitoringDetails : IApiModel
 	{
 		/// <summary>
 		/// Rate per device.

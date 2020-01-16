@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for knowledge base entries.
 	/// </summary>
-	public interface IKnowledgeBaseEntry
+	public interface IKnowledgeBaseEntry : IApiModel
 	{
 		/// <summary>
 		/// The ID of the entry.

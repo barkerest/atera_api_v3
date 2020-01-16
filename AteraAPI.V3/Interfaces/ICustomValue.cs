@@ -5,7 +5,7 @@ namespace AteraAPI.V3.Interfaces
 	/// <summary>
 	/// Defines the interface for custom values.
 	/// </summary>
-	public interface ICustomValue
+	public interface ICustomValue : IApiModel
 	{
 		/// <summary>
 		/// The numeric ID.

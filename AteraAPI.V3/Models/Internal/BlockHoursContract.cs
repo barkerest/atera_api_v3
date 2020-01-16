@@ -3,13 +3,17 @@ using Newtonsoft.Json;
 
 namespace AteraAPI.V3.Models.Internal
 {
-	internal class BlockHoursContract : IContractHourlyDetails
+	internal class BlockHoursContract : IContractHourBlockDetails
 	{
-		[JsonConverter(typeof(ConcreteConverter<Rate>))]
-		public IRate PrimaryRate { get; set; }
+		public double HoursIncluded { get; set; }
 		
-		[JsonConverter(typeof(ConcreteArrayConverter<IRate,Rate>))]
-		public IRate[] AdditionalRates { get; set; }
+		[JsonConverter(typeof(ConcreteConverter<Rate>))]
+		public IRate PricePerHour { get; set; }
+		
+		[JsonConverter(typeof(ConcreteConverter<Rate>))]
+		public IRate OverageRate { get; set; }
+		
+		public bool CommitRollover { get; set; }
 		
 		public string BillingPeriod { get; set; }
 	}

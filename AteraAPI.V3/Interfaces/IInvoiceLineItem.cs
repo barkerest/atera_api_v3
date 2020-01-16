@@ -1,6 +1,6 @@
 ﻿namespace AteraAPI.V3.Interfaces
 {
-	public interface IInvoiceLineItem
+	public interface IInvoiceLineItem : IApiModel
 	{
 		/// <summary>
 		/// The product name.

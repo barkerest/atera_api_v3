@@ -11,7 +11,7 @@ namespace AteraAPI.V3.Models.Internal
 			=> serializer.Serialize(writer, value);
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-			=> serializer.Deserialize<TType[]>(reader).Cast<TInterface>().ToArray();
+			=> serializer.Deserialize<TType[]>(reader)?.Cast<TInterface>().ToArray();
 		
 		public override bool CanConvert(Type objectType) => true;
 	}

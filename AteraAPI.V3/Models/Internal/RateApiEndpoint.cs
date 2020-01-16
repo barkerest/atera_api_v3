@@ -15,6 +15,19 @@ namespace AteraAPI.V3.Models.Internal
 
 		public Task<int> CreateAsync(IRate item) => CommonCreateAsync(item);
 
+		public IRate Create(Action<IRate> init) => CreateAsync(init).Result;
+
+		public async Task<IRate> CreateAsync(Action<IRate> init)
+		{
+			if (init is null) throw new ArgumentNullException(nameof(init));
+			var item = new Rate();
+			init(item);
+			item.RateID = await CreateAsync(item);
+			return item;
+		}
+
+		public IRate NewItem() => new Rate();
+
 		public bool Update(int id, IRate item) => CommonUpdateAsync(id, item).Result;
 
 		public bool Update(IRate item) => CommonUpdateAsync(item).Result;

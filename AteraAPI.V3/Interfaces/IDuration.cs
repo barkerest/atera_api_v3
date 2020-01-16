@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Defines a duration.
 	/// </summary>
-	public interface IDuration
+	public interface IDuration : IApiModel
 	{
 		/// <summary>
 		/// The ticket ID.
