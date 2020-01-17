@@ -1,4 +1,5 @@
-﻿using AteraAPI.V3.Interfaces;
+﻿using System;
+using AteraAPI.V3.Interfaces;
 
 namespace AteraAPI.V3.Models.Internal
 {
@@ -24,15 +25,28 @@ namespace AteraAPI.V3.Models.Internal
 			return $"{Description} ({Amount:#,##0.00})";
 		}
 
+		private bool Equals(IRate other)
+		{
+			return RateID == other.RateID && Amount.Equals(other.Amount) && Description == other.Description && SKU == other.SKU && Category == other.Category && Archived == other.Archived;
+		}
+
 		public override bool Equals(object obj)
 		{
-			if (ReferenceEquals(this, obj)) return true;
-			if (!(obj is IRate other)) return false;
-			return other.RateID == RateID
-			       && other.Amount == Amount
-			       && other.SKU == SKU
-			       && other.Category == Category
-			       && other.Archived == Archived;
+			return ReferenceEquals(this, obj) || obj is IRate other && Equals(other);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				var hashCode = RateID;
+				hashCode = (hashCode * 397) ^ Amount.GetHashCode();
+				hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (SKU != null ? SKU.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (Category != null ? Category.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ Archived.GetHashCode();
+				return hashCode;
+			}
 		}
 	}
 }
