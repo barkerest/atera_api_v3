@@ -9,11 +9,13 @@ namespace AteraAPI.V3.Tests.Models
 	{
 		public static IEnumerable<object[]> GetJsonConvertTestParams()
 		{
+			var rate = InternalModel.CreateInstanceOf<IRate>(("Amount", 123.45));
 			var data = new []
 			{
 				CreateModel(() => new
 				{
-					BillingPeriod = "Weekly"
+					BillingPeriod = "Weekly",
+					RatePerDevice = rate
 				}),
 			};
 

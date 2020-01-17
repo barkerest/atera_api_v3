@@ -15,7 +15,7 @@ namespace AteraAPI.V3.Models.Internal
 
 		public override string ToString()
 		{
-			return $"Monitoring: {RatePerDevice} per {CountBy}";
+			return $"Monitoring: {RatePerDevice} per device";
 		}
 
 		private bool Equals(IContractRemoteMonitoringDetails other)

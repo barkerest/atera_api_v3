@@ -1,9 +1,22 @@
-﻿using AteraAPI.V3.Interfaces;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AteraAPI.V3.Extensions;
+using AteraAPI.V3.Interfaces;
 
 namespace AteraAPI.V3.Models.Internal
 {
 	internal class HardwareDisk : IHardwareDisk
 	{
+		private static readonly IReadOnlyDictionary<long,string> BinarySizes = new Dictionary<long, string>()
+		{
+			{1L<<60, "EiB" },
+			{1L<<50, "PiB"},
+			{1L<<40, "TiB"},
+			{1L<<30, "GiB"},
+			{1L<<20, "MiB"},
+			{1L<<10, "KiB"},
+		};
+		
 		public string Drive { get; set; }
 		public long? Free { get; set; }
 		public long? Used { get; set; }
@@ -11,7 +24,9 @@ namespace AteraAPI.V3.Models.Internal
 
 		public override string ToString()
 		{
-			return Drive;
+			return Total.HasValue 
+				       ? $"{Drive} ({this.FriendlyTotalSize()}" 
+				       : Drive;
 		}
 
 		private bool Equals(IHardwareDisk other)

@@ -6,13 +6,16 @@ using Xunit;
 namespace AteraAPI.V3.Tests.Models
 {
 	public class ContractOnlineBackupDetails_Should : Model_Should<IContractOnlineBackupDetails>
-	{public static IEnumerable<object[]> GetJsonConvertTestParams()
+	{
+		public static IEnumerable<object[]> GetJsonConvertTestParams()
 		{
+			var rate = InternalModel.CreateInstanceOf<IRate>(("Amount", 123.45));
 			var data = new []
 			{
 				CreateModel(() => new
 				{
-					BillingPeriod = "Weekly"
+					BillingPeriod = "Weekly",
+					RatePerGB = rate
 				}),
 			};
 

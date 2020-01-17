@@ -62,6 +62,30 @@ namespace AteraAPI.V3.Tests
 			
 			Assert.False(failed);
 		}
+		
+		[Fact]
+		public void OverrideGetHashCode()
+		{
+			var imps   = ApiModelImplementations.Where(x => x.Value != null && x.Value.Length == 1).Select(x => new { Interface = x.Key, Implementation = x.Value[0] }).ToArray();
+			var failed = false;
+
+			foreach (var imp in imps)
+			{
+				var method = imp.Implementation.GetMethod("GetHashCode", BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy, null, Type.EmptyTypes, null);
+				if (method is null)
+				{
+					failed = true;
+					_output.WriteLine($"Type {imp.Implementation} is missing GetHashCode.");
+				}
+				else if (method.DeclaringType != imp.Implementation)
+				{
+					failed = true;
+					_output.WriteLine($"Type {imp.Implementation} does not override GetHashCode.");
+				}
+			}
+			
+			Assert.False(failed);
+		}
 
 		[Fact]
 		public void OverrideEquals()

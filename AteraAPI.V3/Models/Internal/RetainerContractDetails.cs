@@ -15,7 +15,7 @@ namespace AteraAPI.V3.Models.Internal
 
 		public override string ToString()
 		{
-			return $"Retainer: Qty {Quantity}, Billed {BillingPeriod}";
+			return $"Retainer: Qty {Quantity}";
 		}
 
 		private bool Equals(IContractRetainerDetails other)

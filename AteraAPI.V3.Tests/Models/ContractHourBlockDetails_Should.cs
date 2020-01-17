@@ -13,7 +13,8 @@ namespace AteraAPI.V3.Tests.Models
 			{
 				CreateModel(() => new
 				{
-					BillingPeriod = "Weekly"
+					BillingPeriod = "Weekly",
+					HoursIncluded = 42
 				}),
 			};
 

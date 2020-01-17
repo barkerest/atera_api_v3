@@ -22,7 +22,8 @@ namespace AteraAPI.V3.Models.Internal
 
 		public override string ToString()
 		{
-			return $"{Description} ({Amount:#,##0.00})";
+			if (string.IsNullOrWhiteSpace(Description)) return Amount.ToString("#,##0.00");
+			return $"{Amount:#,##0.00} ({Description})";
 		}
 
 		private bool Equals(IRate other)
