@@ -35,5 +35,6 @@ namespace AteraAPI.V3.Models.Internal
 		public Task<bool> DeleteAsync(int id) => CommonDeleteAsync(id);
 
 		public Task<bool> DeleteAsync(IAlert item) => CommonDeleteAsync(item);
+
 	}
 }

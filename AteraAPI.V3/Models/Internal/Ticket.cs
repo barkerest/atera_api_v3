@@ -37,6 +37,15 @@ namespace AteraAPI.V3.Models.Internal
 		public string EndUserPhone { get; set; }
 		public bool ShouldSerializeEndUserPhone() => false;
 
+		private string _newDescription;
+
+		public string Description
+		{
+			get => (TicketID == 0) ? _newDescription : FirstComment;
+			set => _newDescription = value;
+		}
+		public bool ShouldSerializeDescription() => (TicketID == 0);
+
 		public DateTime? TicketResolvedDate { get; set; }
 		public bool ShouldSerializeTicketResolvedDate() => false;
 

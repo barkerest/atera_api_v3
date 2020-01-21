@@ -20,7 +20,7 @@ namespace AteraAPI.V3.Interfaces
 		/// <summary>
 		/// A unique number for the ticket based on a timestamp.
 		/// </summary>
-		string TicketNumber { get; set; }
+		string TicketNumber { get; }
 		
 		/// <summary>
 		/// The priority of the ticket.
@@ -40,7 +40,7 @@ namespace AteraAPI.V3.Interfaces
 		/// <summary>
 		/// The source of the ticket.
 		/// </summary>
-		string TicketSource { get; set; }
+		string TicketSource { get; }
 		
 		/// <summary>
 		/// The type of ticket.
@@ -70,7 +70,12 @@ namespace AteraAPI.V3.Interfaces
 		/// <summary>
 		/// The phone of the end user.
 		/// </summary>
-		string EndUserPhone { get; set; }
+		string EndUserPhone { get; }
+		
+		/// <summary>
+		/// The description for the ticket during creation, should become first comment.
+		/// </summary>
+		string Description { get; set; }
 		
 		/// <summary>
 		/// When was the ticket resolved.

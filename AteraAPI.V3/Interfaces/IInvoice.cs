@@ -35,12 +35,12 @@ namespace AteraAPI.V3.Interfaces
 		/// <summary>
 		/// Invoice tax.
 		/// </summary>
-		double Tax { get; }
+		double? Tax { get; }
 		
 		/// <summary>
 		/// Tax rate.
 		/// </summary>
-		double TaxPercentage { get; }
+		double? TaxPercentage { get; }
 		
 		/// <summary>
 		/// The invoice date.

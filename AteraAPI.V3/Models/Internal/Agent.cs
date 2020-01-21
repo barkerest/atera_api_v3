@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AteraAPI.V3.Interfaces;
 using Newtonsoft.Json;
 
@@ -66,7 +67,7 @@ namespace AteraAPI.V3.Models.Internal
 
 		private bool Equals(IAgent other)
 		{
-			return AgentID == other.AgentID && MachineID == other.MachineID && DeviceGuid == other.DeviceGuid && CustomerID == other.CustomerID && CustomerName == other.CustomerName &&
+			if (!(AgentID == other.AgentID && MachineID == other.MachineID && DeviceGuid == other.DeviceGuid && CustomerID == other.CustomerID && CustomerName == other.CustomerName &&
 			       FolderID == other.FolderID && AgentName == other.AgentName && SystemName == other.SystemName && MachineName == other.MachineName && DomainName == other.DomainName &&
 			       CurrentLoggedUsers == other.CurrentLoggedUsers && ComputerDescription == other.ComputerDescription && Monitored == other.Monitored &&
 			       Nullable.Equals(LastPatchManagementReceived, other.LastPatchManagementReceived) && AgentVersion == other.AgentVersion && Favorite == other.Favorite &&
@@ -74,9 +75,15 @@ namespace AteraAPI.V3.Models.Internal
 			       ReportedFromIP == other.ReportedFromIP && AppViewUrl == other.AppViewUrl && Motherboard == other.Motherboard && Processor == other.Processor && Memory == other.Memory &&
 			       Display == other.Display && Sound == other.Sound && ProcessorCoresCount == other.ProcessorCoresCount && SystemDrive == other.SystemDrive && ProcessorClock == other.ProcessorClock &&
 			       Vendor == other.Vendor && VendorSerialNumber == other.VendorSerialNumber && VendorBrandModel == other.VendorBrandModel && ProductName == other.ProductName &&
-			       Equals(MacAddresses, other.MacAddresses) && Equals(IpAddresses, other.IpAddresses) && Equals(HardwareDisks, other.HardwareDisks) && OS == other.OS && OSType == other.OSType &&
-			       OSVersion == other.OSVersion && OSBuild == other.OSBuild && WindowsSerialNumber == other.WindowsSerialNumber && Office == other.Office && OfficeSP == other.OfficeSP &&
-			       OfficeOEM == other.OfficeOEM && OfficeSerialNumber == other.OfficeSerialNumber && OfficeFullVersion == other.OfficeFullVersion && LastLoginUser == other.LastLoginUser;
+			       OS == other.OS && OSType == other.OSType && OSVersion == other.OSVersion && OSBuild == other.OSBuild &&
+			       WindowsSerialNumber == other.WindowsSerialNumber && Office == other.Office && OfficeSP == other.OfficeSP && OfficeOEM == other.OfficeOEM &&
+			       OfficeSerialNumber == other.OfficeSerialNumber && OfficeFullVersion == other.OfficeFullVersion && LastLoginUser == other.LastLoginUser)) return false;
+
+			if (!(HardwareDisks ?? new IHardwareDisk[0]).OrderBy(x => x.Drive).SequenceEqual((other.HardwareDisks ?? new IHardwareDisk[0]).OrderBy(x => x.Drive))) return false;
+			if (!(MacAddresses ?? new string[0]).OrderBy(x => x).SequenceEqual((other.MacAddresses ?? new string[0]).OrderBy(x => x))) return false;
+			if (!(IpAddresses ?? new string[0]).OrderBy(x => x).SequenceEqual((other.IpAddresses ?? new string[0]).OrderBy(x => x))) return false;
+			
+			return true;
 		}
 
 		public override bool Equals(object obj)
@@ -123,9 +130,6 @@ namespace AteraAPI.V3.Models.Internal
 				hashCode = (hashCode * 397) ^ (VendorSerialNumber != null ? VendorSerialNumber.GetHashCode() : 0);
 				hashCode = (hashCode * 397) ^ (VendorBrandModel != null ? VendorBrandModel.GetHashCode() : 0);
 				hashCode = (hashCode * 397) ^ (ProductName != null ? ProductName.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (MacAddresses != null ? MacAddresses.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (IpAddresses != null ? IpAddresses.GetHashCode() : 0);
-				hashCode = (hashCode * 397) ^ (HardwareDisks != null ? HardwareDisks.GetHashCode() : 0);
 				hashCode = (hashCode * 397) ^ (OS != null ? OS.GetHashCode() : 0);
 				hashCode = (hashCode * 397) ^ (OSType != null ? OSType.GetHashCode() : 0);
 				hashCode = (hashCode * 397) ^ (OSVersion != null ? OSVersion.GetHashCode() : 0);
@@ -137,6 +141,9 @@ namespace AteraAPI.V3.Models.Internal
 				hashCode = (hashCode * 397) ^ (OfficeSerialNumber != null ? OfficeSerialNumber.GetHashCode() : 0);
 				hashCode = (hashCode * 397) ^ (OfficeFullVersion != null ? OfficeFullVersion.GetHashCode() : 0);
 				hashCode = (hashCode * 397) ^ (LastLoginUser != null ? LastLoginUser.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (HardwareDisks?.Sum(x => x.GetHashCode()) ?? 0);
+				hashCode = (hashCode * 397) ^ (MacAddresses?.Sum(x => x.GetHashCode()) ?? 0);
+				hashCode = (hashCode * 397) ^ (IpAddresses?.Sum(x => x.GetHashCode()) ?? 0);
 				return hashCode;
 			}
 		}

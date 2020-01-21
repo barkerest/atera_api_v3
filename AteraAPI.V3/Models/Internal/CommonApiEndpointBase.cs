@@ -25,7 +25,7 @@ namespace AteraAPI.V3.Models.Internal
 
 		protected IEnumerable<TI> CommonGetEnumerable<TI,TM>(string name) where TM : class, TI where TI : IApiModel
 		{
-			var pp     = ("itemsInPage", "100");
+			var pp     = ("itemsInPage", "50");
 			var pg     = 1;
 			var result = _context.ExecuteAsync<GetListResult<TM>>(name, args: new[] {("page", pg.ToString()), pp}).Result;
 			while (result.Page <= result.TotalPages)
@@ -44,7 +44,7 @@ namespace AteraAPI.V3.Models.Internal
 		
 		protected async Task<IEnumerable<TI>> CommonGetEnumerableAsync<TI,TM>(string name) where TM : class, TI where TI : IApiModel
 		{
-			var pp     = ("itemsInPage", "100");
+			var pp     = ("itemsInPage", "50");
 			var pg     = 1;
 			var result = await _context.ExecuteAsync<GetListResult<TM>>(name, args: new[] {("page", pg.ToString()), pp});
 			var ret = new List<TI>();

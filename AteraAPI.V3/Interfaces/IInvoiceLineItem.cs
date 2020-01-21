@@ -25,12 +25,12 @@
 		/// <summary>
 		/// Tax rate.
 		/// </summary>
-		double TaxPercentage { get; }
+		double? TaxPercentage { get; }
 		
 		/// <summary>
 		/// Discount rate.
 		/// </summary>
-		double DiscountPercentage { get; }
+		double? DiscountPercentage { get; }
 		
 		/// <summary>
 		/// Line total.
@@ -45,7 +45,7 @@
 		/// <summary>
 		/// Line tax.
 		/// </summary>
-		double Tax { get; }
+		double? Tax { get; }
 		
 		/// <summary>
 		/// Line index.

@@ -154,6 +154,11 @@ namespace AteraAPI.V3
 		{
 			try
 			{
+				if (string.IsNullOrEmpty(body) || body.Trim().ToLower().Equals("null"))
+				{
+					return null;
+				}
+				
 				using (var stringReader = new StringReader(body))
 				using (var jsonReader = new JsonTextReader(stringReader))
 				{
@@ -202,7 +207,7 @@ namespace AteraAPI.V3
 
 			try
 			{
-				return responseObject.ToObject<TResult>();
+				return responseObject?.ToObject<TResult>();
 			}
 			catch (JsonException jsonException)
 			{
