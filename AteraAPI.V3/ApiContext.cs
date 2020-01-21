@@ -31,7 +31,6 @@ namespace AteraAPI.V3
 		/// <summary>
 		/// Creates a new context using the supplied settings.
 		/// </summary>
-		/// <param name="settings"></param>
 		/// <exception cref="ArgumentNullException"></exception>
 		/// <exception cref="ArgumentException"></exception>
 		public ApiContext(string apiBaseUrl, string apiKey)
@@ -56,6 +55,16 @@ namespace AteraAPI.V3
 			CustomValues = new CustomValueApiEndpoint(this);
 		}
 
+		/// <summary>
+		/// Creates a new context using the supplied API key and the default base URL.
+		/// </summary>
+		/// <exception cref="ArgumentNullException"></exception>
+		/// <exception cref="ArgumentException"></exception>
+		public ApiContext(string apiKey) : this("https://app.atera.com/api/v3/", apiKey)
+		{
+			
+		}
+		
 		/// <summary>
 		/// Creates, reads, updates, and deletes customers.
 		/// </summary>
