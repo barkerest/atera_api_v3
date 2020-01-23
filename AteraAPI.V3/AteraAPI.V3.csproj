@@ -4,7 +4,7 @@
         <Authors>Beau Barker</Authors>
         <Product>AteraAPI.V3</Product>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/barkerest/atera_api_v3</RepositoryUrl>
