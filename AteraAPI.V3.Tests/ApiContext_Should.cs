@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using AteraAPI.V3.Enums;
 using AteraAPI.V3.Interfaces;
 using AteraAPI.V3.Tests.Config;
 using Xunit;
@@ -388,10 +389,17 @@ namespace AteraAPI.V3.Tests
 
 		#region Custom Values
 
-		// no way to test custom values without setting something up via the portal.
-		// this would require setting up a custom value with a known name for one or more of the target data types.
-		// then the custom value would need to be set in a target item.
-		// and finally we'd be able to test our ability to read the custom value by using the ID for the known target item.
+		// prereq: setup a custom value on Contacts named Division.
+		[Fact]
+		public void GetContactDivision()
+		{
+			var contact = _context.Contacts
+			                      .Select(x => new { Contact = x, Division = _context.CustomValues.FindFor(CustomFieldTarget.Contact, x.ContactID, "division")})
+			                      .FirstOrDefault(x => x.Division != null && Guid.TryParse(x.Division.Id, out var guid) && guid != Guid.Empty)
+			              ?? throw new XunitException("No contacts to test custom value with.");
+			
+			Assert.NotNull(contact?.Division);
+		}
 
 		#endregion
 

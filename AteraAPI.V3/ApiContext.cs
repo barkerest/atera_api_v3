@@ -159,7 +159,7 @@ namespace AteraAPI.V3
 			return "";
 		}
 		
-		private JObject GetJObject(string body)
+		private JToken GetJObject(string body, Type t)
 		{
 			try
 			{
@@ -171,7 +171,14 @@ namespace AteraAPI.V3
 				using (var stringReader = new StringReader(body))
 				using (var jsonReader = new JsonTextReader(stringReader))
 				{
-					return JObject.Load(jsonReader);
+					if (t.IsArray)
+					{
+						return JArray.Load(jsonReader);
+					}
+					else
+					{
+						return JObject.Load(jsonReader);
+					}
 				}
 			}
 			catch (JsonException jsonException)
@@ -212,11 +219,11 @@ namespace AteraAPI.V3
 
 			if (string.IsNullOrWhiteSpace(responseBody)) return null;
 
-			var responseObject = GetJObject(responseBody);
+			var responseObject = GetJObject(responseBody, typeof(TResult));
 
 			try
 			{
-				return responseObject?.ToObject<TResult>();
+				return responseObject?.ToObject<TResult>();					
 			}
 			catch (JsonException jsonException)
 			{
